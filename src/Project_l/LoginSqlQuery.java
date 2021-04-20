@@ -44,11 +44,15 @@ public class LoginSqlQuery {
     public static boolean login(String username, String password) {
 //        boolean status=false;
         Connection conn = getConnection();
-        Statement st = null;
+//        Statement st = null;
+        PreparedStatement st=null;
         ResultSet rs = null;
         try {
-            st = conn.createStatement();
-            rs = st.executeQuery("select * from Account where username='" + username + "'and password='" + password + "'");
+            String sql ="select * from Account where username=? and password=?";
+            st = conn.prepareStatement(sql);
+            st.setString(1,username);
+            st.setString(2,password);
+//            rs = st.executeQuery("select * from Account where username='" + username + "'and password='" + password + "'");
             if (rs.next()) {
                 return true;
             }
