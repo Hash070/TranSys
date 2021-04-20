@@ -43,8 +43,6 @@ public class Login extends JFrame {
         reg.setVisible(true);
         reg.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
-
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -98,7 +96,7 @@ public class Login extends JFrame {
             reg.setBounds(new Rectangle(new Point(235, 215), reg.getPreferredSize()));
 
             //---- warn ----
-            warn.setHorizontalAlignment(SwingConstants.CENTER);//this class must be declared in a method
+            warn.setHorizontalAlignment(SwingConstants.CENTER);
             warn.setForeground(Color.red);
             panel1.add(warn);
             warn.setBounds(140, 180, 145, 30);
