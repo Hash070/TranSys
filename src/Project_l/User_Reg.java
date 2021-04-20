@@ -21,10 +21,13 @@ public class User_Reg {
         }
         if(isEcho(username_in))
             throw new AccountEcho(username_in);
+        PreparedStatement pst=null;
         try {
-        Statement statement =connection.createStatement();
-        String sql="INSERT INTO `Tran`.`Account`(`username`, `password`) VALUES ('"+username_in+"','"+password_in+"')";
-        statement.execute(sql);
+        String sql="INSERT INTO `Tran`.`Account`(`username`, `password`) VALUES (?,?)";
+        pst =connection.prepareStatement(sql);
+        pst.setString(1,username_in);
+        pst.setString(2,password_in);
+        pst.execute(sql);
         }
         catch (SQLException e1) {
             e1.printStackTrace();
@@ -68,6 +71,4 @@ class AccountEcho extends Exception{
     public String getAccount(){
         return echoaccount;
     }
-
 }
-
