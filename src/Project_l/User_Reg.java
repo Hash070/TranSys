@@ -27,7 +27,7 @@ public class User_Reg {
         pst =connection.prepareStatement(sql);
         pst.setString(1,username_in);
         pst.setString(2,password_in);
-        pst.execute(sql);
+        pst.execute();//注意这里不能有东西。。。。。。
         }
         catch (SQLException e1) {
             e1.printStackTrace();
