@@ -12,7 +12,7 @@ new FormModel {
 					"text": "用户管理"
 					"horizontalAlignment": 0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 125
+					"x": 315
 					"y": 0
 					"width": 245
 					"height": 40
@@ -23,29 +23,20 @@ new FormModel {
 						name: "list1"
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 55
-					"y": 45
-					"width": 105
-					"height": 165
+					"x": 210
+					"y": 40
+					"width": 450
+					"height": 145
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 115
-				"y": 15
-				"width": 340
-				"height": 245
-			} )
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane2"
-				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "table1"
-				} )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 265
-				"y": 300
+				"x": 0
+				"y": 0
+				"width": 880
+				"height": 530
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 65, 0 )
-			"size": new java.awt.Dimension( 955, 865 )
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 880, 555 )
 		} )
 	}
 }
