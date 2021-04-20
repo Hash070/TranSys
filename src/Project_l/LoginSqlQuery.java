@@ -7,7 +7,6 @@ public class LoginSqlQuery {
     public static final String url = "jdbc:mysql://localhost:3306/Tran?useUnicode=true&characterEncoding=utf8&useSSL=true";
     public static final String user = "root";
     public static final String password = "123456";
-
     static {
         try {
             Class.forName(driverclass);
@@ -52,7 +51,7 @@ public class LoginSqlQuery {
             st = conn.prepareStatement(sql);
             st.setString(1,username);
             st.setString(2,password);
-//            rs = st.executeQuery("select * from Account where username='" + username + "'and password='" + password + "'");
+            rs = st.executeQuery();
             if (rs.next()) {
                 return true;
             }
