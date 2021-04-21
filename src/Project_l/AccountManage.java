@@ -25,6 +25,7 @@ import java.util.Vector;
 对客户交易信息可以管理。
 */
 public class AccountManage extends JFrame {
+    String selectedUser;
     public AccountManage() {
         initComponents();
         intilizeJList();
@@ -58,6 +59,7 @@ public class AccountManage extends JFrame {
         if(AcList.getValueIsAdjusting()){
         Object[] selected=AcList.getSelectedValues();
         System.out.println(selected[0]);
+        selectedUser=selected[0].toString();
 //        String AcName=selected[0].toString();//setString不兼容的解决方法
 //        System.out.println(AcName);
         Connection conn=null;
@@ -86,7 +88,33 @@ public class AccountManage extends JFrame {
 
     private void saveButtonActionPerformed(ActionEvent e) {
         // TODO add your code here
-
+        Connection conn=null;
+        PreparedStatement st =null;
+        String namein,passwordin,emailin,telin,addressin;
+//        namein=username.getText();
+//        passwordin=password.getText();
+//        emailin=email.getText();
+//        telin=tel.getText();
+//        addressin=address.getText();
+        try {
+            conn=JdbcUtils.getConnection();
+//            String sql="insert into `Tran`.`Account` (`username`,`password`,`mail`,`tel`,`adress`) values (?,?,?,?,?)";
+            //插入语句不能用于更新数据库中已有的数据，只能用于新增数据。
+            String sql="UPDATE `Tran`.`Account` SET `username` = ?, `password` = ?, `mail` = ?, `tel` = ?, `address` = ? WHERE `username` = ?";
+            //变更数据应当使用UPDATE语句。
+            st=conn.prepareStatement(sql);
+            st.setString(1,username.getText());
+            st.setString(2,password.getText());
+            st.setString(3,email.getText());
+            st.setString(4,tel.getText());
+            st.setString(5,address.getText());
+            st.setString(6,selectedUser);
+            st.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally{
+            JdbcUtils.release(conn,st,null);
+        }
     }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
