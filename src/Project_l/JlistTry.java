@@ -14,8 +14,10 @@ public class JlistTry extends JFrame{
       jp=new JPanel();
       add =new JButton("添加");
       del=new JButton("删除");
+      change=new JButton("修改");
       add.setBounds(10,40,50,20);
       del.setBounds(10,70,50,20);
+      change.setBounds(10,100,50,20);
 //      jText=new JTextField();
 //      jText.setText("jfkdlsajfjdsafkdjsakjfldkjsakfjdklsajf");
 //      jText.setBounds(600,300,100,100);
@@ -47,6 +49,7 @@ public class JlistTry extends JFrame{
       jp.add(jb);
       jp.add(add);
       jp.add(del);
+      jp.add(change);
 //      jp.add(jText);
 //      jscrollpane.add(jl);
       jp.add(jscrollpane);
@@ -54,6 +57,7 @@ public class JlistTry extends JFrame{
       jb.addActionListener(e -> init(e));
       add.addActionListener(e -> addThings(e));
       del.addActionListener(e-> delThings(e));
+      change.addActionListener(e ->changeThings(e));
 //      jf.setDefaultCloseOperation(EXIT_ON_CLOSE);//设置默认关闭操作可以直接在jf对象上设置。
         //有时候不知道为什么在外面设置不生效时可以直接在jf上设置.
 //      jl.setListData(v);//可以加上按钮监听，实现刷新list内容的方法。
@@ -74,23 +78,34 @@ public class JlistTry extends JFrame{
             jl.setListData(v);
         }else JOptionPane.showMessageDialog(null,"没有选中内容");
     }
+    public void changeThings(ActionEvent e){
+        if(jl.getSelectedValues().length==1){
+            int indexS=jl.getSelectedIndex();
+            Object[] objArr=jl.getSelectedValues();//这里必须使用数组吗？？
+            //这里只能使用对象数组来进行接收，不然会出现问题。
+            String inputStr = JOptionPane.showInputDialog("请输入要修改的内容",objArr[0]);
+            v.remove(objArr[0]);
+            v.add(indexS,inputStr);
+            jl.setListData(v);
+        }else{
+            JOptionPane.showMessageDialog(null,"只能选中一行数据来进行修改");
+        }
+    }
     public void init(ActionEvent e){
         v.clear();
         v.add("first");
-        v.add("second");
-        v.add("second");
-        v.add("second");
-        v.add("second");v.add("second");
+        v.add("secaaaond");
+        v.add("secaaaond");
+        v.add("secoaaaaaand");
+        v.add("secoaaaaaand");v.add("second");
         v.add("second");v.add("second");v.add("second");v.add("second");v.add("second");v.add("second");
-
         jl.setListData(v);
     }
     public static void main(String[] args) {
         JlistTry j=new JlistTry();
-//        j.setDefaultCloseOperation(j.EXIT_ON_CLOSE);
+//      j.setDefaultCloseOperation(j.EXIT_ON_CLOSE);
         j.jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//这样也是等价的，如果直接set没有用的话，
         //可以调用里面的对象来设置。
-
     }
     public JPanel jp;
     public JFrame jf;
@@ -99,5 +114,6 @@ public class JlistTry extends JFrame{
     public JButton jb;
     public JButton add;
     public JButton del;
+    public JButton change;
     public JScrollPane jscrollpane;
 }
