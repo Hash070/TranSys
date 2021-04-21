@@ -69,6 +69,7 @@ public class JlistTry extends JFrame{
       change.addActionListener(e ->changeThings(e));
       sAll.addActionListener(e ->sAll(e));
       nsAll.addActionListener(e ->nsAll(e));
+      reverseSelectButton.addActionListener(e ->reverseSelectButton(e));
 //      jf.setDefaultCloseOperation(EXIT_ON_CLOSE);//设置默认关闭操作可以直接在jf对象上设置。
         //有时候不知道为什么在外面设置不生效时可以直接在jf上设置.
 //      jl.setListData(v);//可以加上按钮监听，实现刷新list内容的方法。
@@ -127,6 +128,22 @@ public class JlistTry extends JFrame{
             s[i]=-1;
         }
         jl.setSelectedIndices(s);
+    }
+    public void reverseSelectButton(ActionEvent e){
+        int[] all=new int[v.size()];
+        for(int i=0;i<all.length;i++){
+            all[i] = i;
+        }//创建全选数组
+        int[] sel=jl.getSelectedIndices();//获得已选择的数组
+        for(int i=0;i<sel.length;i++){//根据已选择的数组的下标来反选全选数组即可
+            int temp=sel[i];
+            for (int j=0;j<all.length;j++){//细心。。。这里写错了导致bug
+                if(temp==all[j]){
+                    all[j]=-1;
+                }
+            }
+        }//最后别忘记了set。。。
+        jl.setSelectedIndices(all);
     }
     public static void main(String[] args) {
         JlistTry j=new JlistTry();

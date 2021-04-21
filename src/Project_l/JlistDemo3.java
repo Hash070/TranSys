@@ -116,19 +116,18 @@ public class JlistDemo3 {
 
         // 反选按钮
         demo3.reverseSelectButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                int[] allArr = new int[v.size()];
+                int[] allArr = new int[v.size()];//先创建一个全选的数组
                 for (int i = 0; i < allArr.length; i++) {
                     allArr[i] = i;
                 }
-                int[] selectArr = jlist.getSelectedIndices();
+                int[] selectArr = jlist.getSelectedIndices();//然后再创建一个已选择的数组
                 for (int i = 0; i < selectArr.length; i++) {
                     int value = selectArr[i];
-                    for (int j = 0; j < allArr.length; j++) {
-                        if (value == allArr[j]) {
+                    for (int j = 0;j < allArr.length; j++) {//将已选择的东西设置为不选则就行
+                        if (value == allArr[j]) {//逻辑就是如果这个被选中了，那么将全选的东西，勾掉就行。
                             allArr[j] = -1;
                         }
                     }
