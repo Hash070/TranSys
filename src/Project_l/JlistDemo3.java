@@ -41,9 +41,12 @@ public class JlistDemo3 {
             public void actionPerformed(ActionEvent e) {
                 // 如果vectorList有选中的，则通过vector删除，并重新显示到vectorList,否则提示未选中；
                 if (jlist.getSelectedValues().length > 0) {
-                    Object[] objArr = jlist.getSelectedValues();
+                    //jlist的
+                    Object[] objArr = jlist.getSelectedValues();//这里划一条线的意思是类已经弃用类，不建议使用但是可以用。
+                    System.out.println(jlist.getSelectedValues());
                     for (int i = 0; i < objArr.length; i++) {
                         v.remove(objArr[i]);
+                        System.out.println(objArr[i]);
                     }
                     jlist.setListData(v);
                     // vectorList = null;
@@ -75,7 +78,7 @@ public class JlistDemo3 {
                 } else {
                     v.remove(objArr[0]);
                     String modifyStr = JOptionPane.showInputDialog("请修改值",
-                            objArr[0]);
+                            objArr[0]);//这个放在这里的意义是让输入窗口的JTextField有初始值.
                     v.add(modifyStr);
                     jlist.setListData(v);
                 }

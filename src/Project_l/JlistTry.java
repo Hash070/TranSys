@@ -12,6 +12,10 @@ public class JlistTry extends JFrame{
     public void init(){
       JList jlist;
       jp=new JPanel();
+      add =new JButton("添加");
+      del=new JButton("删除");
+      add.setBounds(10,40,50,20);
+      del.setBounds(10,70,50,20);
 //      jText=new JTextField();
 //      jText.setText("jfkdlsajfjdsafkdjsakjfldkjsakfjdklsajf");
 //      jText.setBounds(600,300,100,100);
@@ -31,7 +35,7 @@ public class JlistTry extends JFrame{
       jb.setBounds(10,10,50,20);
       v.add("hello");
       v.add("world");//idea中可以选中代码然后按tab向右缩进，也可以选中之后按shift+tab实现向左缩进。
-//      jl.setBounds(100,100,200,200);
+//    jl.setBounds(100,100,200,200);
       jscrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
       //设置竖直方向上的滚动条一直出现
       jscrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -41,14 +45,34 @@ public class JlistTry extends JFrame{
       jf.setSize(900,800);
 //      jp.add(jl);
       jp.add(jb);
+      jp.add(add);
+      jp.add(del);
 //      jp.add(jText);
 //      jscrollpane.add(jl);
       jp.add(jscrollpane);
       jf.setVisible(true);
       jb.addActionListener(e -> init(e));
+      add.addActionListener(e -> addThings(e));
+      del.addActionListener(e-> delThings(e));
 //      jf.setDefaultCloseOperation(EXIT_ON_CLOSE);//设置默认关闭操作可以直接在jf对象上设置。
         //有时候不知道为什么在外面设置不生效时可以直接在jf上设置.
 //      jl.setListData(v);//可以加上按钮监听，实现刷新list内容的方法。
+    }
+    public void addThings(ActionEvent e)
+    {
+        String inputStr=JOptionPane.showInputDialog("请输入要添加的内容");
+        //这个JOptionPane好像挺有意思的，还能这么玩。
+        v.add(inputStr);
+        jl.setListData(v);
+    }
+    public void delThings(ActionEvent e){
+        if(jl.getSelectedValues().length>0){
+            Object[] objArr=jl.getSelectedValues();
+            for(int i = 0; objArr.length>i;i++){
+                v.remove(objArr[i]);
+            }
+            jl.setListData(v);
+        }else JOptionPane.showMessageDialog(null,"没有选中内容");
     }
     public void init(ActionEvent e){
         v.clear();
@@ -73,5 +97,7 @@ public class JlistTry extends JFrame{
     public JList jl;
 //    public JTextField jText;
     public JButton jb;
+    public JButton add;
+    public JButton del;
     public JScrollPane jscrollpane;
 }
