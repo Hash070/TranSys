@@ -4,10 +4,16 @@
 
 package Project_l;
 
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
 
 /**
  * @author a
@@ -21,23 +27,45 @@ import java.awt.event.ActionEvent;
 public class AccountManage extends JFrame {
     public AccountManage() {
         initComponents();
-
+        intilizeJList();
     }
-
+    private void intilizeJList(){
+//        String[] accounts;
+//        ArrayList<String> str=new ArrayList<String>();
+        Vector<String> v = new Vector<String>();
+        PreparedStatement st =null;
+        ResultSet rs = null;
+        Connection conn =null;
+        try {
+             conn =JdbcUtils.getConnection();
+             String sql="select * from Account";
+             st=conn.prepareStatement(sql);
+             rs=st.executeQuery();
+             for(int i=0;rs.next();i++){
+                 v.add(rs.getString("username"));
+             }
+             AcList.setListData(v);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally{
+            JdbcUtils.release(conn,st,rs);
+        }
+    }
     private void JListValueChanged(ListSelectionEvent e) {
         // TODO add your code here
 
     }
+
     private void saveButtonActionPerformed(ActionEvent e) {
         // TODO add your code here
-    }
 
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
         label1 = new JLabel();
         scrollPane1 = new JScrollPane();
-        list1 = new JList();
+        AcList = new JList();
         nameText = new JLabel();
         label2 = new JLabel();
         username = new JTextField();
@@ -67,9 +95,9 @@ public class AccountManage extends JFrame {
             //======== scrollPane1 ========
             {
 
-                //---- list1 ----
-                list1.addListSelectionListener(e -> JListValueChanged(e));
-                scrollPane1.setViewportView(list1);
+                //---- AcList ----
+                AcList.addListSelectionListener(e -> JListValueChanged(e));
+                scrollPane1.setViewportView(AcList);
             }
             panel1.add(scrollPane1);
             scrollPane1.setBounds(165, 40, 165, 140);
@@ -113,6 +141,7 @@ public class AccountManage extends JFrame {
 
             //---- saveButton ----
             saveButton.setText("\u4fdd\u5b58");
+            saveButton.addActionListener(e -> saveButtonActionPerformed(e));
             panel1.add(saveButton);
             saveButton.setBounds(new Rectangle(new Point(220, 420), saveButton.getPreferredSize()));
 
@@ -157,7 +186,7 @@ public class AccountManage extends JFrame {
     private JPanel panel1;
     private JLabel label1;
     private JScrollPane scrollPane1;
-    private JList list1;
+    private JList AcList;
     private JLabel nameText;
     private JLabel label2;
     private JTextField username;
