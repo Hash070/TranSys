@@ -84,7 +84,7 @@ new FormModel {
 					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "adressText"
+					name: "addressText"
 					"text": "配送地址"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 140
@@ -99,7 +99,7 @@ new FormModel {
 					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "adress"
+					name: "address"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 250
 					"y": 360

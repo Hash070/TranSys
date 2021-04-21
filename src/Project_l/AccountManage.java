@@ -36,6 +36,7 @@ public class AccountManage extends JFrame {
         PreparedStatement st =null;
         ResultSet rs = null;
         Connection conn =null;
+        AcList.setSelectionMode(0);
         try {
              conn =JdbcUtils.getConnection();
              String sql="select * from Account";
@@ -51,9 +52,36 @@ public class AccountManage extends JFrame {
             JdbcUtils.release(conn,st,rs);
         }
     }
-    private void JListValueChanged(ListSelectionEvent e) {
+    private void JListValueChanged(ListSelectionEvent e) {//该方法被执行了两次，原因是鼠标按下是一次，鼠标松开是一次。
+        //解决方案：使用if语句判断一下。
         // TODO add your code here
-
+        if(AcList.getValueIsAdjusting()){
+        Object[] selected=AcList.getSelectedValues();
+        System.out.println(selected[0]);
+//        String AcName=selected[0].toString();//setString不兼容的解决方法
+//        System.out.println(AcName);
+        Connection conn=null;
+        PreparedStatement st=null;//这里写null不是冗余的，而是为了避免finally中语法检查出错。
+        ResultSet rs=null;
+            try {
+                conn=JdbcUtils.getConnection();
+                String sql="select * from Account where `username`=?";
+                st=conn.prepareStatement(sql);
+                st.setString(1,selected[0].toString());
+                rs = st.executeQuery();
+                for(int i=0;rs.next();i++){
+                    username.setText(rs.getString("username"));
+                    password.setText(rs.getString("password"));
+                    email.setText(rs.getString("mail"));
+                    tel.setText(rs.getString("tel"));
+                    address.setText(rs.getString("address"));
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }finally{
+                JdbcUtils.release(conn,st,rs);
+            }
+        }
     }
 
     private void saveButtonActionPerformed(ActionEvent e) {
@@ -73,9 +101,9 @@ public class AccountManage extends JFrame {
         emailText = new JLabel();
         telText = new JLabel();
         email = new JTextField();
-        adressText = new JLabel();
+        addressText = new JLabel();
         tel = new JTextField();
-        adress = new JTextField();
+        address = new JTextField();
         saveButton = new JButton();
 
         //======== this ========
@@ -130,14 +158,14 @@ public class AccountManage extends JFrame {
             panel1.add(email);
             email.setBounds(250, 280, 150, 30);
 
-            //---- adressText ----
-            adressText.setText("\u914d\u9001\u5730\u5740");
-            panel1.add(adressText);
-            adressText.setBounds(new Rectangle(new Point(140, 365), adressText.getPreferredSize()));
+            //---- addressText ----
+            addressText.setText("\u914d\u9001\u5730\u5740");
+            panel1.add(addressText);
+            addressText.setBounds(new Rectangle(new Point(140, 365), addressText.getPreferredSize()));
             panel1.add(tel);
             tel.setBounds(250, 320, 150, 30);
-            panel1.add(adress);
-            adress.setBounds(250, 360, 150, 30);
+            panel1.add(address);
+            address.setBounds(250, 360, 150, 30);
 
             //---- saveButton ----
             saveButton.setText("\u4fdd\u5b58");
@@ -194,9 +222,9 @@ public class AccountManage extends JFrame {
     private JLabel emailText;
     private JLabel telText;
     private JTextField email;
-    private JLabel adressText;
+    private JLabel addressText;
     private JTextField tel;
-    private JTextField adress;
+    private JTextField address;
     private JButton saveButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
