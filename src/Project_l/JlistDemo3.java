@@ -90,18 +90,13 @@ public class JlistDemo3 {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ListModel model = jlist.getModel();
-                jlist
-                        .setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-                // vectorList.setsele
-                int[] allSelect = new int[v.size()];
+                jlist.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                int[] allSelect = new int[v.size()];//获取JList的行数//即获取Vector对象所存储字符串的数目。
+                //获得Vector对象中的行数之后再创建一个这么长的整形数组
                 for (int i = 0; i < v.size(); i++) {
-                    allSelect[i] = i;
-                    // vectorList.setSelectionModel(selectionModel)
-                    // vectorList.setSelectionMode(v);
+                    allSelect[i] = i;//初始化这个数组，使这个数组中的元素包含所有想要选中的下标
                 }
-                jlist.setSelectedIndices(allSelect);
-                // vectorList.setSelectedIndex(i);
+                jlist.setSelectedIndices(allSelect);//将一个存储着待选中行号整型数组当作参数放到JList中的setSelectedIndices方法中去,即可实现选中功能
             }
         });
 
@@ -111,9 +106,9 @@ public class JlistDemo3 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                int[] noSelectArr = new int[v.size()];
+                int[] noSelectArr = new int[v.size()];//长度必须一一对应。
                 for (int i = 0; i < noSelectArr.length; i++) {
-                    noSelectArr[i] = -1;
+                    noSelectArr[i] = -1;//设置全部不选时，数组中所有的值必须赋值为-1，不然默认为0，则会导致第一行被选中。
                 }
                 jlist.setSelectedIndices(noSelectArr);
             }

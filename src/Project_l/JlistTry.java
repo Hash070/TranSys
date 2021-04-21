@@ -15,9 +15,15 @@ public class JlistTry extends JFrame{
       add =new JButton("添加");
       del=new JButton("删除");
       change=new JButton("修改");
+      sAll=new JButton("全选");
+      nsAll=new JButton("全不选");
+      reverseSelectButton =new JButton("反选");
       add.setBounds(10,40,50,20);
       del.setBounds(10,70,50,20);
       change.setBounds(10,100,50,20);
+      sAll.setBounds(10,130,50,20);
+      nsAll.setBounds(10,160,50,20);
+      reverseSelectButton.setBounds(10,190,50,20);
 //      jText=new JTextField();
 //      jText.setText("jfkdlsajfjdsafkdjsakjfldkjsakfjdklsajf");
 //      jText.setBounds(600,300,100,100);
@@ -50,6 +56,9 @@ public class JlistTry extends JFrame{
       jp.add(add);
       jp.add(del);
       jp.add(change);
+      jp.add(sAll);
+      jp.add(nsAll);
+      jp.add(reverseSelectButton);
 //      jp.add(jText);
 //      jscrollpane.add(jl);
       jp.add(jscrollpane);
@@ -58,6 +67,8 @@ public class JlistTry extends JFrame{
       add.addActionListener(e -> addThings(e));
       del.addActionListener(e-> delThings(e));
       change.addActionListener(e ->changeThings(e));
+      sAll.addActionListener(e ->sAll(e));
+      nsAll.addActionListener(e ->nsAll(e));
 //      jf.setDefaultCloseOperation(EXIT_ON_CLOSE);//设置默认关闭操作可以直接在jf对象上设置。
         //有时候不知道为什么在外面设置不生效时可以直接在jf上设置.
 //      jl.setListData(v);//可以加上按钮监听，实现刷新list内容的方法。
@@ -101,6 +112,22 @@ public class JlistTry extends JFrame{
         v.add("second");v.add("second");v.add("second");v.add("second");v.add("second");v.add("second");
         jl.setListData(v);
     }
+    public void sAll(ActionEvent e){
+        jl.setSelectionMode(2);
+        int[] select=new int[v.size()];
+        for(int i=0;i<v.size();i++){
+            select[i]=i;
+        }
+        jl.setSelectedIndices(select);
+    }
+    public void nsAll(ActionEvent e){
+        jl.setSelectionMode(2);
+        int[] s=new int[v.size()];
+        for(int i=0;i<s.length;i++){
+            s[i]=-1;
+        }
+        jl.setSelectedIndices(s);
+    }
     public static void main(String[] args) {
         JlistTry j=new JlistTry();
 //      j.setDefaultCloseOperation(j.EXIT_ON_CLOSE);
@@ -110,10 +137,13 @@ public class JlistTry extends JFrame{
     public JPanel jp;
     public JFrame jf;
     public JList jl;
-//    public JTextField jText;
+//  public JTextField jText;
     public JButton jb;
     public JButton add;
     public JButton del;
     public JButton change;
+    public JButton sAll;
+    public JButton nsAll;
+    public JButton reverseSelectButton;
     public JScrollPane jscrollpane;
 }
