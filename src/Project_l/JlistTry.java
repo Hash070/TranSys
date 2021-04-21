@@ -105,7 +105,7 @@ public class JlistTry extends JFrame{
     }
     public void init(ActionEvent e){
         v.clear();
-        v.add("first");
+        v.add("first");//账户管理可以使用for循环赋值
         v.add("secaaaond");
         v.add("secaaaond");
         v.add("secoaaaaaand");

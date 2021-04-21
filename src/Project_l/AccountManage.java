@@ -12,17 +12,23 @@ import java.awt.event.ActionEvent;
 /**
  * @author a
  */
+/*
+（5）用户管理：实现用户信息的管理，
+例如用户名、密码、邮箱、联系电话、配送地址等，
+可以实现用户的查删修改。实现客户的信息管理，
+对客户交易信息可以管理。
+*/
 public class AccountManage extends JFrame {
     public AccountManage() {
         initComponents();
+
     }
 
     private void JListValueChanged(ListSelectionEvent e) {
         // TODO add your code here
 
     }
-
-    private void refresh(ActionEvent e) {
+    private void saveButtonActionPerformed(ActionEvent e) {
         // TODO add your code here
     }
 
@@ -32,7 +38,17 @@ public class AccountManage extends JFrame {
         label1 = new JLabel();
         scrollPane1 = new JScrollPane();
         list1 = new JList();
-        refresh = new JButton();
+        nameText = new JLabel();
+        label2 = new JLabel();
+        username = new JTextField();
+        password = new JTextField();
+        emailText = new JLabel();
+        telText = new JLabel();
+        email = new JTextField();
+        adressText = new JLabel();
+        tel = new JTextField();
+        adress = new JTextField();
+        saveButton = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -46,7 +62,7 @@ public class AccountManage extends JFrame {
             label1.setText("\u7528\u6237\u7ba1\u7406");
             label1.setHorizontalAlignment(SwingConstants.CENTER);
             panel1.add(label1);
-            label1.setBounds(315, 0, 245, 40);
+            label1.setBounds(120, 0, 245, 40);
 
             //======== scrollPane1 ========
             {
@@ -56,13 +72,49 @@ public class AccountManage extends JFrame {
                 scrollPane1.setViewportView(list1);
             }
             panel1.add(scrollPane1);
-            scrollPane1.setBounds(210, 40, 450, 145);
+            scrollPane1.setBounds(165, 40, 165, 140);
 
-            //---- refresh ----
-            refresh.setText("\u5237\u65b0");
-            refresh.addActionListener(e -> refresh(e));
-            panel1.add(refresh);
-            refresh.setBounds(new Rectangle(new Point(585, 190), refresh.getPreferredSize()));
+            //---- nameText ----
+            nameText.setText("\u7528\u6237\u540d");
+            nameText.setHorizontalAlignment(SwingConstants.CENTER);
+            panel1.add(nameText);
+            nameText.setBounds(new Rectangle(new Point(145, 210), nameText.getPreferredSize()));
+
+            //---- label2 ----
+            label2.setText("\u5bc6\u7801");
+            label2.setHorizontalAlignment(SwingConstants.CENTER);
+            panel1.add(label2);
+            label2.setBounds(new Rectangle(new Point(150, 250), label2.getPreferredSize()));
+            panel1.add(username);
+            username.setBounds(250, 200, 150, 30);
+            panel1.add(password);
+            password.setBounds(250, 240, 150, 30);
+
+            //---- emailText ----
+            emailText.setText("\u90ae\u7bb1");
+            panel1.add(emailText);
+            emailText.setBounds(new Rectangle(new Point(150, 290), emailText.getPreferredSize()));
+
+            //---- telText ----
+            telText.setText("\u7535\u8bdd");
+            panel1.add(telText);
+            telText.setBounds(new Rectangle(new Point(150, 330), telText.getPreferredSize()));
+            panel1.add(email);
+            email.setBounds(250, 280, 150, 30);
+
+            //---- adressText ----
+            adressText.setText("\u914d\u9001\u5730\u5740");
+            panel1.add(adressText);
+            adressText.setBounds(new Rectangle(new Point(140, 365), adressText.getPreferredSize()));
+            panel1.add(tel);
+            tel.setBounds(250, 320, 150, 30);
+            panel1.add(adress);
+            adress.setBounds(250, 360, 150, 30);
+
+            //---- saveButton ----
+            saveButton.setText("\u4fdd\u5b58");
+            panel1.add(saveButton);
+            saveButton.setBounds(new Rectangle(new Point(220, 420), saveButton.getPreferredSize()));
 
             {
                 // compute preferred size
@@ -80,7 +132,7 @@ public class AccountManage extends JFrame {
             }
         }
         contentPane.add(panel1);
-        panel1.setBounds(0, 0, 880, 530);
+        panel1.setBounds(0, 0, 525, 530);
 
         {
             // compute preferred size
@@ -106,6 +158,16 @@ public class AccountManage extends JFrame {
     private JLabel label1;
     private JScrollPane scrollPane1;
     private JList list1;
-    private JButton refresh;
+    private JLabel nameText;
+    private JLabel label2;
+    private JTextField username;
+    private JTextField password;
+    private JLabel emailText;
+    private JLabel telText;
+    private JTextField email;
+    private JLabel adressText;
+    private JTextField tel;
+    private JTextField adress;
+    private JButton saveButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

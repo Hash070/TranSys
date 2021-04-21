@@ -12,7 +12,7 @@ new FormModel {
 					"text": "用户管理"
 					"horizontalAlignment": 0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 315
+					"x": 120
 					"y": 0
 					"width": 245
 					"height": 40
@@ -24,28 +24,104 @@ new FormModel {
 						addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "JListValueChanged", true ) )
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 210
+					"x": 165
 					"y": 40
-					"width": 450
-					"height": 145
+					"width": 165
+					"height": 140
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "nameText"
+					"text": "用户名"
+					"horizontalAlignment": 0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 145
+					"y": 210
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "密码"
+					"horizontalAlignment": 0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 150
+					"y": 250
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "username"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 250
+					"y": 200
+					"width": 150
+					"height": 30
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "password"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 250
+					"y": 240
+					"width": 150
+					"height": 30
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "emailText"
+					"text": "邮箱"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 150
+					"y": 290
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "telText"
+					"text": "电话"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 150
+					"y": 330
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "email"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 250
+					"y": 280
+					"width": 150
+					"height": 30
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "adressText"
+					"text": "配送地址"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 140
+					"y": 365
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "tel"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 250
+					"y": 320
+					"width": 150
+					"height": 30
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "adress"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 250
+					"y": 360
+					"width": 150
+					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "refresh"
-					"text": "刷新"
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "refresh", true ) )
+					name: "saveButton"
+					"text": "保存"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 585
-					"y": 190
+					"x": 220
+					"y": 420
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 0
 				"y": 0
-				"width": 880
+				"width": 525
 				"height": 530
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 880, 555 )
+			"location": new java.awt.Point( 80, 0 )
+			"size": new java.awt.Dimension( 525, 555 )
 		} )
 	}
 }
