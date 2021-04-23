@@ -29,10 +29,10 @@ public class AccountManage extends JFrame {
     String selectedUser;
     public AccountManage() {
         initComponents();
-        intilizeJList();
+        initlizeJList();
 //        err.setVisible(true);
     }
-    private void intilizeJList(){
+    private void initlizeJList(){
 //        String[] accounts;
 //        ArrayList<String> str=new ArrayList<String>();
         Vector<String> v = new Vector<String>();
@@ -110,7 +110,7 @@ public class AccountManage extends JFrame {
             st.setString(3,email.getText());
             st.setString(4,tel.getText());
             st.setString(5,address.getText());
-            st.setString(6,selectedUser);
+            st.setString(6,username.getText());
             st.execute();
             err.setText(username.getText()+"保存成功");
             err.setForeground(Color.BLACK);
@@ -121,6 +121,7 @@ public class AccountManage extends JFrame {
         }finally{
             JdbcUtils.release(conn,st,null);
         }
+        initlizeJList();
     }
 
     private void addUserActionPerformed(ActionEvent e) {
@@ -149,6 +150,7 @@ public class AccountManage extends JFrame {
             err.setForeground(Color.red);
 //            err.setVisible(true);
         }
+        initlizeJList();
     }
 
     private void delUserActionPerformed(ActionEvent e) {
@@ -167,7 +169,7 @@ public class AccountManage extends JFrame {
                 st.executeUpdate();
                 err.setText(selectedUser+"删除成功");
                 err.setForeground(Color.black);
-                intilizeJList();
+                initlizeJList();
             } catch (SQLException throwables) {
                 err.setText(selectedUser+"删除失败");
                 err.setForeground(Color.red);
