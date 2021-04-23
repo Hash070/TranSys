@@ -150,6 +150,31 @@ public class AccountManage extends JFrame {
 //            err.setVisible(true);
         }
     }
+
+    private void delUserActionPerformed(ActionEvent e) {
+        // TODO add your code here//DELETE FROM `Tran`.`Account` WHERE `username` = 'helloa'
+//        JOptionPane.showMessageDialog(null,"只能选中一行数据来进行修改");
+            Object[] selected=AcList.getSelectedValues();
+            System.out.println(selected[0]);
+            selectedUser=selected[0].toString();
+            Connection conn =null;
+            PreparedStatement st =null;
+            try {
+                conn=JdbcUtils.getConnection();
+                String sql="DELETE FROM `Tran`.`Account` WHERE `username` = ?";
+                st=conn.prepareStatement(sql);
+                st.setString(1,selectedUser);
+                st.executeUpdate();
+                err.setText(selectedUser+"删除成功");
+                err.setForeground(Color.black);
+                intilizeJList();
+            } catch (SQLException throwables) {
+                err.setText(selectedUser+"删除失败");
+                err.setForeground(Color.red);
+                throwables.printStackTrace();
+            }
+
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -246,6 +271,7 @@ public class AccountManage extends JFrame {
 
             //---- delUser ----
             delUser.setText("\u5220\u9664\u7528\u6237");
+            delUser.addActionListener(e -> delUserActionPerformed(e));
             panel1.add(delUser);
             delUser.setBounds(new Rectangle(new Point(225, 165), delUser.getPreferredSize()));
 
