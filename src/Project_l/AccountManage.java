@@ -21,14 +21,16 @@ import java.util.Vector;
 /*
 （5）用户管理：实现用户信息的管理，
 例如用户名、密码、邮箱、联系电话、配送地址等，
-可以实现用户的查删修改。实现客户的信息管理，
-对客户交易信息可以管理。
+可以实现用户的查删修改
+实现客户的信息管理.
+//对客户交易信息可以管理。
 */
 public class AccountManage extends JFrame {
     String selectedUser;
     public AccountManage() {
         initComponents();
         intilizeJList();
+//        err.setVisible(true);
     }
     private void intilizeJList(){
 //        String[] accounts;
@@ -116,6 +118,34 @@ public class AccountManage extends JFrame {
             JdbcUtils.release(conn,st,null);
         }
     }
+
+    private void addUserActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        Connection conn=null;
+        PreparedStatement st = null;
+        Boolean tig=LoginSqlQuery.isEcho(username.getText());
+        if (!tig)
+        try {
+            conn=JdbcUtils.getConnection();
+            String sql="INSERT INTO `Tran`.`Account`(`username`, `password`, `mail`, `tel`, `address`) VALUES (?,?,?,?,?)";
+            st =conn.prepareStatement(sql);
+            st.setString(1,username.getText());
+            st.setString(2,password.getText());
+            st.setString(3,email.getText());
+            st.setString(4,tel.getText());
+            st.setString(5,address.getText());
+            st.executeUpdate();
+            err.setText(username.getText()+"注册成功");
+            err.setForeground(Color.green);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        else{
+            err.setText(username.getText()+"已被注册");
+            err.setForeground(Color.red);
+//            err.setVisible(true);
+        }
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -133,6 +163,9 @@ public class AccountManage extends JFrame {
         tel = new JTextField();
         address = new JTextField();
         saveButton = new JButton();
+        addUser = new JButton();
+        delUser = new JButton();
+        err = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -146,7 +179,7 @@ public class AccountManage extends JFrame {
             label1.setText("\u7528\u6237\u7ba1\u7406");
             label1.setHorizontalAlignment(SwingConstants.CENTER);
             panel1.add(label1);
-            label1.setBounds(120, 0, 245, 40);
+            label1.setBounds(140, 0, 245, 40);
 
             //======== scrollPane1 ========
             {
@@ -156,7 +189,7 @@ public class AccountManage extends JFrame {
                 scrollPane1.setViewportView(AcList);
             }
             panel1.add(scrollPane1);
-            scrollPane1.setBounds(165, 40, 165, 140);
+            scrollPane1.setBounds(235, 35, 60, 125);
 
             //---- nameText ----
             nameText.setText("\u7528\u6237\u540d");
@@ -199,7 +232,20 @@ public class AccountManage extends JFrame {
             saveButton.setText("\u4fdd\u5b58");
             saveButton.addActionListener(e -> saveButtonActionPerformed(e));
             panel1.add(saveButton);
-            saveButton.setBounds(new Rectangle(new Point(220, 420), saveButton.getPreferredSize()));
+            saveButton.setBounds(new Rectangle(new Point(165, 420), saveButton.getPreferredSize()));
+
+            //---- addUser ----
+            addUser.setText("\u6dfb\u52a0\u7528\u6237");
+            addUser.addActionListener(e -> addUserActionPerformed(e));
+            panel1.add(addUser);
+            addUser.setBounds(new Rectangle(new Point(280, 420), addUser.getPreferredSize()));
+
+            //---- delUser ----
+            delUser.setText("\u5220\u9664\u7528\u6237");
+            panel1.add(delUser);
+            delUser.setBounds(new Rectangle(new Point(225, 165), delUser.getPreferredSize()));
+            panel1.add(err);
+            err.setBounds(415, 205, 75, 20);
 
             {
                 // compute preferred size
@@ -254,5 +300,8 @@ public class AccountManage extends JFrame {
     private JTextField tel;
     private JTextField address;
     private JButton saveButton;
+    private JButton addUser;
+    private JButton delUser;
+    private JLabel err;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
