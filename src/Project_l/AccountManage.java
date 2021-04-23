@@ -112,7 +112,11 @@ public class AccountManage extends JFrame {
             st.setString(5,address.getText());
             st.setString(6,selectedUser);
             st.execute();
+            err.setText(username.getText()+"保存成功");
+            err.setForeground(Color.BLACK);
         } catch (SQLException throwables) {
+            err.setText(username.getText()+"保存失败");
+            err.setForeground(Color.red);
             throwables.printStackTrace();
         }finally{
             JdbcUtils.release(conn,st,null);
@@ -136,7 +140,7 @@ public class AccountManage extends JFrame {
             st.setString(5,address.getText());
             st.executeUpdate();
             err.setText(username.getText()+"注册成功");
-            err.setForeground(Color.green);
+            err.setForeground(Color.black);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -244,8 +248,11 @@ public class AccountManage extends JFrame {
             delUser.setText("\u5220\u9664\u7528\u6237");
             panel1.add(delUser);
             delUser.setBounds(new Rectangle(new Point(225, 165), delUser.getPreferredSize()));
+
+            //---- err ----
+            err.setHorizontalAlignment(SwingConstants.CENTER);
             panel1.add(err);
-            err.setBounds(415, 205, 75, 20);
+            err.setBounds(195, 460, 135, 35);
 
             {
                 // compute preferred size

@@ -39,7 +39,7 @@ public class Reg extends JFrame {
             try {
                 new User_Reg(name.getText(),pa);
                 err.setText("注册成功");
-                err.setForeground(Color.green);
+                err.setForeground(Color.black);
             } catch (AccountEcho accountEcho) {
                 err.setText("用户名：\""+accountEcho.getAccount()+"\"已被注册");
                 err.setForeground(Color.red);
