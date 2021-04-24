@@ -110,7 +110,7 @@ public class AccountManage extends JFrame {
             st.setString(3,email.getText());
             st.setString(4,tel.getText());
             st.setString(5,address.getText());
-            st.setString(6,username.getText());
+            st.setString(6,selectedUser);
             st.execute();
             err.setText(username.getText()+"保存成功");
             err.setForeground(Color.BLACK);
@@ -177,6 +177,13 @@ public class AccountManage extends JFrame {
             }
 
     }
+
+    private void BackActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        this.dispose();
+        mainMenu menu = new mainMenu();
+        menu.setVisible(true);
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -197,6 +204,7 @@ public class AccountManage extends JFrame {
         addUser = new JButton();
         delUser = new JButton();
         err = new JLabel();
+        Back = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -282,6 +290,12 @@ public class AccountManage extends JFrame {
             panel1.add(err);
             err.setBounds(195, 460, 135, 35);
 
+            //---- Back ----
+            Back.setText("Back");
+            Back.addActionListener(e -> BackActionPerformed(e));
+            panel1.add(Back);
+            Back.setBounds(new Rectangle(new Point(5, 5), Back.getPreferredSize()));
+
             {
                 // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -338,5 +352,6 @@ public class AccountManage extends JFrame {
     private JButton addUser;
     private JButton delUser;
     private JLabel err;
+    private JButton Back;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
