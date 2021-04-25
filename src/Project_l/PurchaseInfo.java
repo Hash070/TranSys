@@ -10,9 +10,10 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
 
 /**
  * @author a
@@ -21,6 +22,9 @@ public class PurchaseInfo extends JFrame {
     public PurchaseInfo() {
         initComponents();
         initJtable();
+        info.getTableHeader().setReorderingAllowed(false);//列不能移动
+        info.getTableHeader().setResizingAllowed(false);//不可拉动表格
+        info.setEnabled(false);//表格不可更改数据
     }
 
     public static void main(String[] args) {
@@ -34,35 +38,42 @@ public class PurchaseInfo extends JFrame {
     private void initJtable(){
         String[] column={"产品名称","产品价格","产品数量"};
         Object[][] rowData=new Object[100][3];
-//
+        String[][] temp=new String[100][3];
         Connection conn =null;
-        PreparedStatement st =null;
+        Statement st =null;
         ResultSet rs = null;
         try {
             conn=JdbcUtils.getConnection();
             String sql="SELECT `Pname`,`Pprice`,`Pnum` FROM `Tran`.`Purchase`";
-            st=conn.prepareStatement(sql);
-            rs = st.executeQuery();
-            String[] v1=new String[100];
-            String[] v2=new String[100];
-            String[] v3=new String[100];
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            Vector v1=new Vector();
+            Vector v2=new Vector();
+            Vector v3=new Vector();
             for(int i=0;rs.next();i++){
-                v1[0]=rs.getString("Pname");
-                v2[0]=rs.getString("Pprice");
-                v3[0]=rs.getString("Pnum");
+                v1.add(rs.getString("Pname"));
+                v2.add(rs.getString("Pprice"));
+                v3.add(rs.getString("Pnum"));
             }
-            for(int i=0;i<v1.length;i++){
-                for(int j = 0;j<3;j++){
-                    rowData[i][j]=v1[j];
-                    rowData[i][j]=v2[j];
-                    rowData[i][j]=v3[j];
-                }
+            for(int i=0;i<v1.size();i++){
+                    temp[i][0]= (String) v1.get(i);
+                    temp[i][1]= (String) v2.get(i);
+                    temp[i][2]= (String) v3.get(i);
+                    rowData=temp;//草了，为什么要这样脱裤子放屁才能显示出来。。。。。。
             }
+            v1.get(0);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         TableModel dataModel = new DefaultTableModel(rowData,column);
         info.setModel(dataModel);
+//        String[] title = {"水果编号","水果名称","水果单价（/元）","计价单位"};
+//        Object[][] rowData1 = {
+//                {1,"苹果",5.5,"kg"},
+//                {2,"aa",3,"kg"}
+//        };
+//        TableModel dataModel1 = new DefaultTableModel(rowData1, title);
+//        info.setModel(dataModel1);
     }
 
     private void initComponents() {
