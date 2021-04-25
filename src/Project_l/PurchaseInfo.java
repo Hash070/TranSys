@@ -33,7 +33,9 @@ public class PurchaseInfo extends JFrame {
     private void backActionPerformed(ActionEvent e) {
         // TODO add your code here
         this.dispose();
-        new PurchaseApply().setVisible(true);
+        PurchaseApply p = new PurchaseApply();
+        p.setVisible(true);
+        p.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     private void initJtable(){
         String[] column={"产品名称","产品价格","产品数量"};
@@ -61,12 +63,15 @@ public class PurchaseInfo extends JFrame {
                     temp[i][2]= (String) v3.get(i);
                     rowData=temp;//草了，为什么要这样脱裤子放屁才能显示出来。。。。。。
             }
-            v1.get(0);
+//??
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         TableModel dataModel = new DefaultTableModel(rowData,column);
         info.setModel(dataModel);
+        //我反复比对下面的JTable案例，整半天才解决了JTable为空的bug
+        //不知道为什么，我通过debug观察两个rowdata数据，没看出来格式上的差别，但是就是不知道为什么显示不出来。。。
+        //最后通过二维string数组来给rowdata赋值才行。。。。
 //        String[] title = {"水果编号","水果名称","水果单价（/元）","计价单位"};
 //        Object[][] rowData1 = {
 //                {1,"苹果",5.5,"kg"},

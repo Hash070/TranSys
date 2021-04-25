@@ -30,6 +30,7 @@ public class mainMenu extends JFrame {
         this.dispose();
         PurchaseApply pur = new PurchaseApply();
         pur.setVisible(true);
+        pur.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     private void manageActionPerformed(ActionEvent e) {
@@ -38,6 +39,14 @@ public class mainMenu extends JFrame {
         AccountManage ac =new AccountManage();
         ac.setVisible(true);
         ac.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private void transportActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        this.dispose();
+        DeliveryInput de = new DeliveryInput();
+        de.setVisible(true);
+        de.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -76,6 +85,7 @@ public class mainMenu extends JFrame {
 
             //---- transport ----
             transport.setText("\u914d\u9001\u7ba1\u7406");
+            transport.addActionListener(e -> transportActionPerformed(e));
             panel1.add(transport);
             transport.setBounds(new Rectangle(new Point(95, 215), transport.getPreferredSize()));
 

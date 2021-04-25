@@ -54,8 +54,8 @@ public class PurchaseApply extends JFrame {
         this.dispose();
         mainMenu menu = new mainMenu();
         menu.setVisible(true);
+        menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
     private void showActionPerformed(ActionEvent e) {
         // TODO add your code here
         this.dispose();
