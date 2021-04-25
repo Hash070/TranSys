@@ -9,22 +9,27 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Vector;
 
 /**
  * @author a
  */
 public class DeliveryInfo extends JFrame {
+    private Vector v1;
+
+    public static void main(String[] args) {
+        DeliveryInfo d = new DeliveryInfo();
+        d.setVisible(true);
+        d.setDefaultCloseOperation(3);
+    }
     public DeliveryInfo() {
         initComponents();
         initJtable();
-        info.getTableHeader().setReorderingAllowed(false);//列不能移动
+//        info.getTableHeader().setReorderingAllowed(false);//列不能移动
         info.getTableHeader().setResizingAllowed(false);//不可拉动表格
-        info.setEnabled(false);//表格不可更改数据
+//        info.setEnabled(false);//表格不可更改数据
+        info.setSelectionMode(0);
     }
     private void initJtable() {
         String[] column = {"车牌号", "驾驶员", "产品名","购买者","当前位置","配送位置"};
@@ -38,7 +43,7 @@ public class DeliveryInfo extends JFrame {
             String sql = "SELECT `Cno`,`Driver`,`Pname`,`Consumer`,`NowLoc`,`TarLoc` FROM `Tran`.`Deliver`";
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            Vector v1 = new Vector();
+            v1 = new Vector();
             Vector v2 = new Vector();
             Vector v3 = new Vector();
             Vector v4 = new Vector();
@@ -59,7 +64,7 @@ public class DeliveryInfo extends JFrame {
                 temp[i][3] = (String) v4.get(i);
                 temp[i][4] = (String) v5.get(i);
                 temp[i][5] = (String) v6.get(i);
-                rowData = temp;//草了，为什么要这样脱裤子放屁才能显示出来。。。。。。
+                rowData = temp;
             }
 //??
         } catch (SQLException throwables) {
@@ -76,6 +81,46 @@ public class DeliveryInfo extends JFrame {
         m.setDefaultCloseOperation(3);
     }
 
+    private void changeActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        int i = info.getSelectedRow();
+        if(i !=-1){
+            err.setText("");
+            ;
+            System.out.println(v1.get(i));
+            int cno=3232;
+            this.setVisible(false);
+            DeliveryInput d=new DeliveryInput();
+            d.setVisible(true);
+            d.setDefaultCloseOperation(3);
+            Connection conn =null;
+            PreparedStatement st =null;
+            Statement del = null;
+            ResultSet rs = null;
+            try {
+                conn=JdbcUtils.getConnection();
+                del=conn.createStatement();
+                del.execute("DELETE FROM `Tran`.`Deliver` WHERE `Cno` = '"+cno+"'");
+                String sql="select * from `Tran`.`Deliver` where `Cno`=?";
+                st=conn.prepareStatement(sql);
+                st.setInt(1,cno);
+                rs = st.executeQuery();
+                d.t1.setText(rs.getString("Cno"));
+                d.t2.setText(rs.getString("Driver"));
+                d.t3.setText(rs.getString("Pname"));
+                d.t4.setText(rs.getString("Consumer"));
+                d.t5.setText(rs.getString("Price"));
+                d.t6.setText(rs.getString("NowLoc"));
+                d.t7.setText(rs.getString("TarLoc"));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }else{
+            err.setText("请选中之后再进行操作");
+            err.setForeground(Color.red);
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -83,6 +128,8 @@ public class DeliveryInfo extends JFrame {
         label1 = new JLabel();
         scrollPane1 = new JScrollPane();
         info = new JTable();
+        change = new JButton();
+        err = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -109,6 +156,14 @@ public class DeliveryInfo extends JFrame {
             }
             panel1.add(scrollPane1);
             scrollPane1.setBounds(95, 50, 460, 325);
+
+            //---- change ----
+            change.setText("\u4fee\u6539");
+            change.addActionListener(e -> changeActionPerformed(e));
+            panel1.add(change);
+            change.setBounds(new Rectangle(new Point(285, 385), change.getPreferredSize()));
+            panel1.add(err);
+            err.setBounds(380, 390, 120, 20);
 
             {
                 // compute preferred size
@@ -153,5 +208,7 @@ public class DeliveryInfo extends JFrame {
     private JLabel label1;
     private JScrollPane scrollPane1;
     private JTable info;
+    private JButton change;
+    private JLabel err;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

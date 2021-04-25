@@ -223,14 +223,14 @@ public class DeliveryInput extends JFrame {
     private JLabel label5;
     private JLabel label6;
     private JLabel label7;
-    private JTextField t1;
-    private JTextField t2;
-    private JTextField t3;
-    private JTextField t4;
-    private JTextField t5;
-    private JTextField t6;
-    private JTextField t7;
+    public JTextField t1;
+    public JTextField t2;
+    public JTextField t3;
+    public JTextField t4;
+    public JTextField t5;
+    public JTextField t6;
+    public JTextField t7;
     private JButton enter;
-    private JLabel err;
+    public JLabel err;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

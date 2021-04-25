@@ -82,6 +82,9 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "t1"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 280
 					"y": 60
@@ -90,6 +93,9 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "t2"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 280
 					"y": 100
@@ -98,6 +104,9 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "t3"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 280
 					"y": 140
@@ -105,6 +114,9 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "t4"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 280
 					"y": 180
@@ -112,6 +124,9 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "t5"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 280
 					"y": 220
@@ -119,6 +134,9 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "t6"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 280
 					"y": 260
@@ -126,6 +144,9 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "t7"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 280
 					"y": 300
@@ -142,6 +163,9 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "err"
 					"horizontalAlignment": 0
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 165
 					"y": 385
