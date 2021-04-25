@@ -56,6 +56,12 @@ public class PurchaseApply extends JFrame {
         menu.setVisible(true);
     }
 
+    private void showActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        this.dispose();
+        new PurchaseInfo().setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -147,6 +153,7 @@ public class PurchaseApply extends JFrame {
 
             //---- show ----
             show.setText("\u663e\u793a\u8ba2\u5355");
+            show.addActionListener(e -> showActionPerformed(e));
             panel1.add(show);
             show.setBounds(new Rectangle(new Point(480, 5), show.getPreferredSize()));
 
