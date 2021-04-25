@@ -59,6 +59,10 @@ public class DeliveryInput extends JFrame {
 
     private void manageActionPerformed(ActionEvent e) {
         // TODO add your code here
+        this.dispose();
+        DeliveryInfo a=new DeliveryInfo();
+        a.setVisible(true);
+        a.setDefaultCloseOperation(3);
     }
 
     private void initComponents() {
