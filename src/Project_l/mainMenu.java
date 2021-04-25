@@ -27,7 +27,9 @@ public class mainMenu extends JFrame {
     }
     private void buyActionPerformed(ActionEvent e) {
         // TODO add your code here
-
+        this.dispose();
+        PurchaseApply pur = new PurchaseApply();
+        pur.setVisible(true);
     }
 
     private void manageActionPerformed(ActionEvent e) {
