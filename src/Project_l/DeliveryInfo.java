@@ -64,7 +64,7 @@ public class DeliveryInfo extends JFrame {
                 temp[i][3] = (String) v4.get(i);
                 temp[i][4] = (String) v5.get(i);
                 temp[i][5] = (String) v6.get(i);
-                rowData = temp;
+                rowData = temp;//麻了。。。。。。
             }
 //??
         } catch (SQLException throwables) {
@@ -88,8 +88,19 @@ public class DeliveryInfo extends JFrame {
             err.setText("");
             ;
             System.out.println(v1.get(i));
-            int cno=3232;
-            this.setVisible(false);
+            Object cno1=v1.get(i);
+//            int a= (int) cno;
+//            this.setVisible(false);
+            int a=-1;
+            try
+            {
+                a =Integer.parseInt(cno1.toString());//Object转换为Integer类一般是不可行的，除非Object里面只有数字。
+            }//Integer（整数）类里面有个ParseInt方法，可以将字符串转换为integer
+            catch (NumberFormatException e1)
+            {
+                e1.printStackTrace();
+            }
+            this.dispose();
             DeliveryInput d=new DeliveryInput();
             d.setVisible(true);
             d.setDefaultCloseOperation(3);
@@ -100,11 +111,15 @@ public class DeliveryInfo extends JFrame {
             try {
                 conn=JdbcUtils.getConnection();
                 del=conn.createStatement();
-                del.execute("DELETE FROM `Tran`.`Deliver` WHERE `Cno` = '"+cno+"'");
                 String sql="select * from `Tran`.`Deliver` where `Cno`=?";
                 st=conn.prepareStatement(sql);
-                st.setInt(1,cno);
+                st.setInt(1, a);
                 rs = st.executeQuery();
+                rs.next();/*又解决一个bug。。。。。。
+                这个bug也太nt了，如果我在尝试从rs读取一行数据时，即使只有一行
+                也要先执行一下next方法。。。。
+                通过仔细观察AccountManage类找到了解决方案。
+                */
                 d.t1.setText(rs.getString("Cno"));
                 d.t2.setText(rs.getString("Driver"));
                 d.t3.setText(rs.getString("Pname"));
@@ -112,8 +127,13 @@ public class DeliveryInfo extends JFrame {
                 d.t5.setText(rs.getString("Price"));
                 d.t6.setText(rs.getString("NowLoc"));
                 d.t7.setText(rs.getString("TarLoc"));
+                del.execute("DELETE FROM `Tran`.`Deliver` WHERE `Cno` = '"+a+"'");//找到bug了原来是因为我先把这个数据删了，所以下面查的时候就查不到。😂
             } catch (SQLException throwables) {
+                err.setText("请选中有数值的行");
+                err.setForeground(Color.red);
                 throwables.printStackTrace();
+            }finally{
+                JdbcUtils.release(conn,st,rs);
             }
         }else{
             err.setText("请选中之后再进行操作");
@@ -163,7 +183,7 @@ public class DeliveryInfo extends JFrame {
             panel1.add(change);
             change.setBounds(new Rectangle(new Point(285, 385), change.getPreferredSize()));
             panel1.add(err);
-            err.setBounds(380, 390, 120, 20);
+            err.setBounds(380, 390, 210, 20);
 
             {
                 // compute preferred size
