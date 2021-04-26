@@ -18,6 +18,11 @@ public class mainMenu extends JFrame {
         button6.setContentAreaFilled(false);
     }
 
+    public static void main(String[] args) {
+        mainMenu menu = new mainMenu();
+        menu.setVisible(true);
+        menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
     private void button6ActionPerformed(ActionEvent e) {
         // TODO add your code here
         this.dispose();
@@ -48,6 +53,14 @@ public class mainMenu extends JFrame {
         de.setVisible(true);
         de.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
+    private void sellActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        this.dispose();
+        SellManage s=new SellManage();
+        s.setVisible(true);
+        s.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -75,6 +88,7 @@ public class mainMenu extends JFrame {
 
             //---- sell ----
             sell.setText("\u9500\u552e\u7ba1\u7406");
+            sell.addActionListener(e -> sellActionPerformed(e));
             panel1.add(sell);
             sell.setBounds(new Rectangle(new Point(95, 125), sell.getPreferredSize()));
 

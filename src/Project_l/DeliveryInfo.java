@@ -66,7 +66,7 @@ public class DeliveryInfo extends JFrame {
                 temp[i][5] = (String) v6.get(i);
                 rowData = temp;//麻了。。。。。。
             }
-//??
+//??storehouse
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
