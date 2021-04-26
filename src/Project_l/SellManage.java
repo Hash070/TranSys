@@ -65,6 +65,35 @@ public class SellManage extends JFrame {
         System.out.println(df.format(now));
         t4.setText(df.format(now));
     }
+
+    private void doneActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        Connection conn =null;
+        PreparedStatement st =null;
+        try {
+            conn=JdbcUtils.getConnection();
+            String sql="INSERT INTO `Tran`.`StoreHouseAndSellingInfo`(`ProductName`, `ProductLoc`, `ProductQuantity`, `ProductPrice`, `time`, `Consumer`, `Tel`, `Address`,`Status`) " +
+                    "VALUES (?,?,?,?,?,?,?,?,0)";
+            st=conn.prepareStatement(sql);
+            st.setString(1,t1.getText());
+            st.setString(2,t7.getText());
+            st.setString(3,t2.getText());
+            st.setString(4,t3.getText());
+            st.setString(5,t4.getText());
+            st.setString(6,t5.getText());
+            st.setString(7,t6.getText());
+            st.setString(8,t8.getText());//没对准，导致了数据被截断的bug。。。。。
+            st.executeUpdate();
+            err.setText("发票打印成功");
+            err.setForeground(Color.black);
+        } catch (SQLException throwables) {
+            err.setText("发票打印失败,请检查输入的数据是否河里");
+            err.setForeground(Color.red);
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtils.release(conn,st,null);
+        }
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -91,6 +120,7 @@ public class SellManage extends JFrame {
         history = new JButton();
         err = new JLabel();
         time = new JButton();
+        done = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -182,6 +212,9 @@ public class SellManage extends JFrame {
             history.setText("\u5386\u53f2\u8ba2\u5355");
             panel1.add(history);
             history.setBounds(new Rectangle(new Point(575, 45), history.getPreferredSize()));
+
+            //---- err ----
+            err.setHorizontalAlignment(SwingConstants.CENTER);
             panel1.add(err);
             err.setBounds(265, 420, 210, 30);
 
@@ -190,6 +223,12 @@ public class SellManage extends JFrame {
             time.addActionListener(e -> timeActionPerformed(e));
             panel1.add(time);
             time.setBounds(new Rectangle(new Point(490, 175), time.getPreferredSize()));
+
+            //---- done ----
+            done.setText("\u6253\u5370\u53d1\u7968");
+            done.addActionListener(e -> doneActionPerformed(e));
+            panel1.add(done);
+            done.setBounds(new Rectangle(new Point(390, 380), done.getPreferredSize()));
 
             {
                 // compute preferred size
@@ -253,5 +292,6 @@ public class SellManage extends JFrame {
     private JButton history;
     private JLabel err;
     private JButton time;
+    private JButton done;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
