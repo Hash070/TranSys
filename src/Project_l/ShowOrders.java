@@ -104,11 +104,11 @@ public class ShowOrders extends JFrame {
             try {
                 conn=JdbcUtils.getConnection();
                 del=conn.createStatement();
-                String sql="SELECT * FROM `Tran`.`StoreHouseAndSellingInfo` WHERE `ID` = ?";
+                String sql="SELECT * FROM `Tran`.`StoreHouseAndSellingInfo` WHERE `ID` = ?";//这里面不能直接放变量的。
                 st=conn.prepareStatement(sql);
                 st.setInt(1,a);
                 rs = st.executeQuery();
-                rs.next();
+                rs.next();//仓库
                 d.t1.setText(rs.getString("ProductName"));
                 d.t2.setText(rs.getString("ProductQuantity"));
                 d.t3.setText(rs.getString("ProductPrice"));

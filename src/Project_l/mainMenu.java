@@ -61,6 +61,14 @@ public class mainMenu extends JFrame {
         s.setVisible(true);
         s.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
+    private void storageActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        this.dispose();
+        Hub w=new Hub();
+        w.setVisible(true);
+        w.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -94,6 +102,7 @@ public class mainMenu extends JFrame {
 
             //---- storage ----
             storage.setText("\u4ed3\u5e93\u7ba1\u7406");
+            storage.addActionListener(e -> storageActionPerformed(e));
             panel1.add(storage);
             storage.setBounds(new Rectangle(new Point(95, 170), storage.getPreferredSize()));
 
