@@ -9,20 +9,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Vector;
 
 /**
  * @author a
  */
-public class ShowOrders extends JFrame {
-    Vector v1,v7;
-    public ShowOrders() {
+public class HistoryOrders extends JFrame {
+    Vector v1;
+    public HistoryOrders() {
         initComponents();
         initJtable();
-//        info.getTableHeader().setReorderingAllowed(false);//列不能移动
-//        info.getTableHeader().setResizingAllowed(false);//不可拉动表格
-//        info.setEnabled(false);//表格不可更改数据
+        info.getTableHeader().setReorderingAllowed(false);//列不能移动
+        info.getTableHeader().setResizingAllowed(false);//不可拉动表格
+        info.setEnabled(false);//表格不可更改数据
         info.setSelectionMode(0);
     }
     private void initJtable() {
@@ -34,11 +37,10 @@ public class ShowOrders extends JFrame {
         ResultSet rs = null;
         try {
             conn = JdbcUtils.getConnection();
-            String sql = "SELECT * FROM `Tran`.`StoreHouseAndSellingInfo` WHERE `Status` = 1";
+            String sql = "SELECT * FROM `Tran`.`StoreHouseAndSellingInfo` WHERE `Status` = 0";
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             v1 = new Vector();
-            v7 = new Vector();
             Vector v2 = new Vector();
             Vector v3 = new Vector();
             Vector v4 = new Vector();
@@ -51,7 +53,6 @@ public class ShowOrders extends JFrame {
                 v4.add(rs.getString("Consumer"));
                 v5.add(rs.getString("Tel"));
                 v6.add(rs.getString("Address"));
-                v7.add(rs.getString("ID"));
             }
             for (int i = 0; i < v1.size(); i++) {
                 temp[i][0] = (String) v1.get(i);
@@ -76,61 +77,6 @@ public class ShowOrders extends JFrame {
         s.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private void changeActionPerformed(ActionEvent e) {
-        // TODO add your code here
-        int i = info.getSelectedRow();
-        if(i !=-1){
-            err.setText("");
-            System.out.println(v7.get(i));
-            Object cno1=v7.get(i);
-            int a=-1;
-            try
-            {
-                a =Integer.parseInt(cno1.toString());
-                System.out.println(a);
-            }
-            catch (NumberFormatException e1)
-            {
-                e1.printStackTrace();
-            }
-            this.dispose();
-            SellManage d=new SellManage();
-            d.setVisible(true);
-            d.setDefaultCloseOperation(3);
-            Connection conn =null;
-            PreparedStatement st =null;
-            Statement del = null;
-            ResultSet rs = null;
-            try {
-                conn=JdbcUtils.getConnection();
-                del=conn.createStatement();
-                String sql="SELECT * FROM `Tran`.`StoreHouseAndSellingInfo` WHERE `ID` = ?";
-                st=conn.prepareStatement(sql);
-                st.setInt(1,a);
-                rs = st.executeQuery();
-                rs.next();
-                d.t1.setText(rs.getString("ProductName"));
-                d.t2.setText(rs.getString("ProductQuantity"));
-                d.t3.setText(rs.getString("ProductPrice"));
-                d.t4.setText(rs.getString("time"));
-                d.t5.setText(rs.getString("Consumer"));
-                d.t6.setText(rs.getString("Tel"));
-                d.t7.setText(rs.getString("Address"));
-                d.t8.setText(rs.getString("ProductLoc"));
-                del.execute("DELETE FROM `Tran`.`StoreHouseAndSellingInfo` WHERE `ID` = '"+a+"'");
-            } catch (SQLException throwables) {
-                err.setText("请选中有数值的行");
-                err.setForeground(Color.red);
-                throwables.printStackTrace();
-            }finally{
-                JdbcUtils.release(conn,st,rs);
-            }
-        }else{
-            err.setText("请选中之后再进行操作");
-            err.setForeground(Color.red);
-        }
-    }
-
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -138,8 +84,6 @@ public class ShowOrders extends JFrame {
         scrollPane1 = new JScrollPane();
         info = new JTable();
         back = new JButton();
-        change = new JButton();
-        err = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -166,17 +110,6 @@ public class ShowOrders extends JFrame {
             back.addActionListener(e -> backActionPerformed(e));
             panel1.add(back);
             back.setBounds(new Rectangle(new Point(10, 10), back.getPreferredSize()));
-
-            //---- change ----
-            change.setText("\u4fee\u6539");
-            change.addActionListener(e -> changeActionPerformed(e));
-            panel1.add(change);
-            change.setBounds(new Rectangle(new Point(325, 405), change.getPreferredSize()));
-
-            //---- err ----
-            err.setHorizontalAlignment(SwingConstants.CENTER);
-            panel1.add(err);
-            err.setBounds(425, 405, 200, 30);
 
             {
                 // compute preferred size
@@ -221,7 +154,5 @@ public class ShowOrders extends JFrame {
     private JScrollPane scrollPane1;
     private JTable info;
     private JButton back;
-    private JButton change;
-    private JLabel err;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

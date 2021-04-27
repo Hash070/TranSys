@@ -102,6 +102,14 @@ public class SellManage extends JFrame {
         s.setVisible(true);
         s.setDefaultCloseOperation(3);
     }
+
+    private void historyActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        this.dispose();
+        HistoryOrders s=new HistoryOrders();
+        s.setVisible(true);
+        s.setDefaultCloseOperation(3);
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -219,13 +227,14 @@ public class SellManage extends JFrame {
 
             //---- history ----
             history.setText("\u5386\u53f2\u8ba2\u5355");
+            history.addActionListener(e -> historyActionPerformed(e));
             panel1.add(history);
             history.setBounds(new Rectangle(new Point(575, 45), history.getPreferredSize()));
 
             //---- err ----
             err.setHorizontalAlignment(SwingConstants.CENTER);
             panel1.add(err);
-            err.setBounds(265, 420, 210, 30);
+            err.setBounds(255, 420, 250, 30);
 
             //---- time ----
             time.setText("\u5f53\u524d\u65f6\u95f4");
@@ -288,18 +297,18 @@ public class SellManage extends JFrame {
     private JLabel label6;
     private JLabel label7;
     private JLabel label8;
-    private JTextField t1;
-    private JTextField t2;
-    private JTextField t3;
-    private JTextField t4;
-    private JTextField t5;
-    private JTextField t6;
-    private JTextField t7;
-    private JTextField t8;
+    public JTextField t1;
+    public JTextField t2;
+    public JTextField t3;
+    public JTextField t4;
+    public JTextField t5;
+    public JTextField t6;
+    public JTextField t7;
+    public JTextField t8;
     private JButton enter;
     private JButton info;
     private JButton history;
-    private JLabel err;
+    public JLabel err;
     private JButton time;
     private JButton done;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

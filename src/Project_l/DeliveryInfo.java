@@ -86,7 +86,6 @@ public class DeliveryInfo extends JFrame {
         int i = info.getSelectedRow();
         if(i !=-1){
             err.setText("");
-            ;
             System.out.println(v1.get(i));
             Object cno1=v1.get(i);
 //            int a= (int) cno;
