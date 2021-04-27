@@ -94,6 +94,14 @@ public class SellManage extends JFrame {
             JdbcUtils.release(conn,st,null);
         }
     }
+
+    private void infoActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        this.dispose();
+        ShowOrders s=new ShowOrders();
+        s.setVisible(true);
+        s.setDefaultCloseOperation(3);
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel1 = new JPanel();
@@ -205,6 +213,7 @@ public class SellManage extends JFrame {
 
             //---- info ----
             info.setText("\u663e\u793a\u8ba2\u5355");
+            info.addActionListener(e -> infoActionPerformed(e));
             panel1.add(info);
             info.setBounds(new Rectangle(new Point(575, 5), info.getPreferredSize()));
 
