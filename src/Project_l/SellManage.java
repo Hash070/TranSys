@@ -38,13 +38,13 @@ public class SellManage extends JFrame {
                     "VALUES (?,?,?,?,?,?,?,?)";
             st=conn.prepareStatement(sql);
             st.setString(1,t1.getText());
-            st.setString(2,t7.getText());
+            st.setString(2,t8.getText());
             st.setString(3,t2.getText());
             st.setString(4,t3.getText());
             st.setString(5,t4.getText());
             st.setString(6,t5.getText());
             st.setString(7,t6.getText());
-            st.setString(8,t8.getText());//没对准，导致了数据被截断的bug。。。。。
+            st.setString(8,t7.getText());//没对准，导致了数据被截断的bug。。。。。
             st.executeUpdate();
             err.setText("提交成功");
             err.setForeground(Color.black);
@@ -76,13 +76,13 @@ public class SellManage extends JFrame {
                     "VALUES (?,?,?,?,?,?,?,?,0)";
             st=conn.prepareStatement(sql);
             st.setString(1,t1.getText());
-            st.setString(2,t7.getText());
+            st.setString(2,t8.getText());
             st.setString(3,t2.getText());
             st.setString(4,t3.getText());
             st.setString(5,t4.getText());
             st.setString(6,t5.getText());
             st.setString(7,t6.getText());
-            st.setString(8,t8.getText());//没对准，导致了数据被截断的bug。。。。。
+            st.setString(8,t7.getText());//没对准，导致了数据被截断的bug。。。。。
             st.executeUpdate();
             err.setText("发票打印成功");
             err.setForeground(Color.black);

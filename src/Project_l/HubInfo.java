@@ -119,22 +119,27 @@ public class HubInfo extends JFrame {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             int s=0;
-            for (int i = 0; rs.next(); i++) {
-                if(echo.equals(rs.getString("ProductLoc")))
-                {
-                    rs1=rs;
-                    for (int j = 0; rs1.next(); j++) {
-                        if(echo.equals(rs.getString("ProductLoc")))
-                            s++;
-                        else
-                            break;
-                    }
+            while(rs.next()) {
                 System.out.println(rs.getString("ProductLoc"));
                 v1.add(rs.getString("ProductLoc"));
-                v2.add(Integer.toString(s));
+                v2.add("0");
+            }
+            for (int i = 0; i+1 < v1.size(); i++) {//学会读错误信息，可以高效debug
+                String e1 = (String) v1.get(i);
+                for (int j = 0; j+1<v1.size(); j++)
+                {
+                    String e2 = (String) v1.get(j + 1);
+                    if (e1.equals(e2)) {//修改vecotr中元素的数值的方法
+                        Object tempV;
+                        int tempi;
+                        tempV = v2.get(j);
+                        v2.remove(j);
+                        v1.remove(j);
+                        tempi = Integer.parseInt((String) tempV) + 1;
+                        tempV = Integer.toString(tempi);
+                        v2.add(j, tempV);
+                    }
                 }
-                else
-                echo=rs.getString("ProductLoc");
             }
             for (int i = 0; i < v1.size(); i++) {
                 temp[i][0] = (String) v1.get(i);
