@@ -20,7 +20,9 @@ import java.awt.event.ActionEvent;
 */
 public class Practice_Five_02 extends JFrame {
     int times=0;
+    int times_goal=0;
     int[] ins =new int[6];
+    int[] tar = new int[6];
     public static void main(String[] args) {
         Practice_Five_02 a= new Practice_Five_02();
     }
@@ -48,14 +50,12 @@ public class Practice_Five_02 extends JFrame {
         jp.add(input);
         jp.add(act);
         jp.add(message);
-
-
     }
     public void actPerform(ActionEvent e){
 
         int input1;
         input1=Integer.parseInt(input.getText());
-        if((input1>=0&&input1<=16)&&times<6){
+        if((input1>=0&&input1<=16)&&times<5){
             for(int i=0;i<6;i++){
                 if(ins[i]==input1) {
                     message.setText("输入数据重复");
@@ -66,10 +66,11 @@ public class Practice_Five_02 extends JFrame {
             times++;
             message.setText("第"+(times)+"次数据输入成功");
             input.setText("");
-        }else if(!(input1>=0&&input1<=16)){
+        }else if(!(input1>=0&&input1<=16)&&times<=5){
             message.setText("输入数据错误");
-        }else if(times==6){
-            for(int i=0;i<6;i++){
+        }
+        if(times==5){
+            for(int i=0;i<4;i++){
                 if(ins[i]==input1) {
                     message.setText("输入数据重复");
                     return;
@@ -77,9 +78,27 @@ public class Practice_Five_02 extends JFrame {
             }
             ins[times]=input1;
             times++;
-            message.setText("第"+(times)+"次数据输入成功");
+            message.setText("第"+(times+1)+"次数据输入成功");
             input.setText("");
-            //开始进行比对
+            //开始进行随机数生成和比对
+            times=0;//refresh times
+            for(int i=0;i<6;i++){
+                tar[i]=(int)(16*Math.random());
+            }
+            for(int i=0;i<6;i++){
+                if(ins[i]==tar[i])
+                    times_goal++;
+            }
+            if(times_goal>=5){
+                message.setText("恭喜获得一等奖🎉");
+            }else if(times_goal >=4){
+                message.setText("恭喜获得二等奖🎉");
+            }else if (times_goal>=3){
+                message.setText("恭喜获得三等奖🎉");
+            }else{
+                message.setText("很遗憾，未中奖🐶");
+            }
+            times_goal=0;//refresh goal times record;
         }
     }
     public JFrame jf;
